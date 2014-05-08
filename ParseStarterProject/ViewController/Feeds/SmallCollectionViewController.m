@@ -253,7 +253,7 @@ static NSString * const sampleDesc5 = @"Sed rhoncus arcu nisl, in ultrices mi eg
 - (void)fetchFeedData
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Feeds"];
-    [query includeKey:@"feed_by3"];
+    [query includeKey:@"feed_by"];
     [query orderByDescending:@"updatedAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
     NSLog(@"count object : %d", objects.count);
