@@ -1,0 +1,112 @@
+PODS:
+  - AFNetworking (2.2.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.3):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.3)
+  - AFNetworking/Security (2.2.3)
+  - AFNetworking/Serialization (2.2.3)
+  - AFNetworking/UIKit (2.2.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - BZGFormViewController (1.0.1):
+    - libextobjc (~> 0.3)
+    - ReactiveCocoa (~> 2.1.8)
+  - BZGMailgunEmailValidation (1.1.0)
+  - DropdownMenu (1.0.0)
+  - ECSlidingViewController (2.0.0)
+  - Facebook-iOS-SDK (3.13.1)
+  - FRDLivelyButton (1.1.2)
+  - libextobjc (0.4):
+    - libextobjc/EXTADT
+    - libextobjc/EXTConcreteProtocol
+    - libextobjc/EXTKeyPathCoding
+    - libextobjc/EXTNil
+    - libextobjc/EXTSafeCategory
+    - libextobjc/EXTScope
+    - libextobjc/EXTSelectorChecking
+    - libextobjc/EXTSynthesize
+    - libextobjc/NSInvocation+EXT
+    - libextobjc/NSMethodSignature+EXT
+    - libextobjc/RuntimeExtensions
+    - libextobjc/UmbrellaHeader
+  - libextobjc/EXTADT (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTConcreteProtocol (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTKeyPathCoding (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTNil (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSafeCategory (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTScope (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSelectorChecking (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSynthesize (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSInvocation+EXT (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSMethodSignature+EXT (0.4):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.4)
+  - libextobjc/UmbrellaHeader (0.4)
+  - M13ProgressSuite (1.0.0)
+  - MMProgressHUD (0.2.2)
+  - Parse-iOS-SDK (1.2.18):
+    - Facebook-iOS-SDK (~> 3.7)
+  - PopoverView (0.0.2)
+  - ReactiveCocoa (2.1.8):
+    - ReactiveCocoa/Core
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/Core (2.1.8):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.1.8)
+  - Shimmer (1.0.1)
+  - SVPullToRefresh (0.4.1)
+  - TestFlightSDK (3.0.0)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.0)
+  - BZGFormViewController (~> 1.0.1)
+  - BZGMailgunEmailValidation (~> 1.1.0)
+  - DropdownMenu (~> 1.0.0)
+  - ECSlidingViewController (~> 2.0.0)
+  - FRDLivelyButton
+  - M13ProgressSuite (~> 1.0.0)
+  - MMProgressHUD (~> 0.2.2)
+  - Parse-iOS-SDK (~> 1.2.18)
+  - PopoverView
+  - Shimmer (~> 1.0.1)
+  - SVPullToRefresh (~> 0.4.1)
+  - TestFlightSDK (~> 3.0.0)
+
+SPEC CHECKSUMS:
+  AFNetworking: ae513199cca79e9d7af2708ccabe2ed075550c42
+  BZGFormViewController: 2740d69f4dbd291428ee01eaf84b99bfd6801413
+  BZGMailgunEmailValidation: 156c6d389d234fb5a3034c6e1ae4e5cedcc7a203
+  DropdownMenu: 3c454205c2db1fd39dc1ebf099114c4fdb73f136
+  ECSlidingViewController: 9a30cf3c446e39de70128299663fde097d8f3f88
+  Facebook-iOS-SDK: 47ae9e54684c84f93d75d4e6ab47cd031abdf406
+  FRDLivelyButton: ef29e27fa81a9a434412d1f3b266a2736349663b
+  libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
+  M13ProgressSuite: 34c28a6eb72313660b4676ec2f05742a665700a7
+  MMProgressHUD: a829ed1c5382caa64498632a60507e019f780405
+  Parse-iOS-SDK: 48bfd538a107b6e1f29eebe59fa80c0f0b844dd1
+  PopoverView: dc8ffff5ce3af6d38dd5a2656f94b84e8548ae0a
+  ReactiveCocoa: 0db710a0afa1c627a64470e5c912a3870d4854ae
+  Shimmer: a1b92685f04ae7363e655f636a41a276dbb1507e
+  SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
+  TestFlightSDK: fe0567a897456b6f65b180541892ef0154986e01
+
+COCOAPODS: 0.32.1

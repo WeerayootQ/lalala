@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7D60DC0C-8CB3-4D8C-88D8-EF765C0C3D18</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ParseStarterProject</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7D975346-377F-44AD-9BFA-7275692DF9E8</key>
+		<string>ssh://github.com/WeerayootQ/NeightborAPP.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ParseStarterProject.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7D975346-377F-44AD-9BFA-7275692DF9E8</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/WeerayootQ/NeightborAPP.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7D975346-377F-44AD-9BFA-7275692DF9E8</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7D975346-377F-44AD-9BFA-7275692DF9E8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>NeightborAPP</string>
+		</dict>
+	</array>
+</dict>
+</plist>

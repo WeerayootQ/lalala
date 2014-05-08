@@ -1,0 +1,31 @@
+//
+// Prefix header for all source files of the 'ParseStarterProject' target in the 'ParseStarterProject' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_4_3
+#warning "This project uses features only available in iPhone SDK 4.3 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <Parse/Parse.h>
+    #import <QuartzCore/QuartzCore.h>
+    #import "Constant.h"
+    #import "APIClient.h"
+    #import "Climacons.h"
+    #import "MMProgressHUD.h"
+    #import "MMProgressHUDOverlayView.h"
+    #import "MMRadialProgressView.h"
+    #import "MMLinearProgressView.h"
+    #import "AMBubbleTableViewController.h"
+
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define FONT_THIN(s) [UIFont fontWithName:@"AppleSDGothicNeo-Thin" size:s]
+#define FONT_LIGHT(s) [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:s]
+#define FONT_REG(s) [UIFont fontWithName:@"AppleSDGothicNeo-Regular" size:s]
+#define FONT_BOLD(s) [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:s]
+#define FONT_CLIPMACON(s) [UIFont fontWithName:@"Climacons-Font" size:s]
+#endif

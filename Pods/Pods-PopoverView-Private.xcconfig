@@ -1,0 +1,5 @@
+#include "Pods-PopoverView.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/PopoverView" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/BZGFormViewController" "${PODS_ROOT}/Headers/BZGMailgunEmailValidation" "${PODS_ROOT}/Headers/DropdownMenu" "${PODS_ROOT}/Headers/ECSlidingViewController" "${PODS_ROOT}/Headers/FRDLivelyButton" "${PODS_ROOT}/Headers/Facebook-iOS-SDK" "${PODS_ROOT}/Headers/Facebook-iOS-SDK/FacebookSDK" "${PODS_ROOT}/Headers/M13ProgressSuite" "${PODS_ROOT}/Headers/MMProgressHUD" "${PODS_ROOT}/Headers/Parse-iOS-SDK" "${PODS_ROOT}/Headers/PopoverView" "${PODS_ROOT}/Headers/ReactiveCocoa" "${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa" "${PODS_ROOT}/Headers/SVPullToRefresh" "${PODS_ROOT}/Headers/Shimmer" "${PODS_ROOT}/Headers/TestFlightSDK" "${PODS_ROOT}/Headers/libextobjc"
+OTHER_LDFLAGS = -ObjC
+PODS_ROOT = ${SRCROOT}
