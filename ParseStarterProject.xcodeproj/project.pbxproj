@@ -34,6 +34,7 @@
 		1019C40C18CF50EF00721772 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1019C40B18CF50EF00721772 /* SettingsViewController.m */; };
 		1019C40F18CF510300721772 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1019C40E18CF510300721772 /* NotificationsViewController.m */; };
 		1019C41218CF523800721772 /* MembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1019C41118CF523800721772 /* MembersViewController.m */; };
+		1021EAF5191B8A8900501ADE /* BuzzAppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1021EAF4191B8A8900501ADE /* BuzzAppHelper.m */; };
 		102CD7E81903AC950033D201 /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 102CD7E71903AC950033D201 /* APIClient.m */; };
 		102CD7EA1903BEF60033D201 /* Climacons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 102CD7E91903BEF60033D201 /* Climacons.ttf */; };
 		103D144418B3C445007A9EBC /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103D144318B3C445007A9EBC /* AddressBook.framework */; };
@@ -302,6 +303,8 @@
 		1019C40E18CF510300721772 /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		1019C41018CF523800721772 /* MembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MembersViewController.h; sourceTree = "<group>"; };
 		1019C41118CF523800721772 /* MembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MembersViewController.m; sourceTree = "<group>"; };
+		1021EAF3191B8A8900501ADE /* BuzzAppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuzzAppHelper.h; sourceTree = "<group>"; };
+		1021EAF4191B8A8900501ADE /* BuzzAppHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuzzAppHelper.m; sourceTree = "<group>"; };
 		102CD7E61903AC950033D201 /* APIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIClient.h; sourceTree = "<group>"; };
 		102CD7E71903AC950033D201 /* APIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIClient.m; sourceTree = "<group>"; };
 		102CD7E91903BEF60033D201 /* Climacons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Climacons.ttf; sourceTree = "<group>"; };
@@ -1168,6 +1171,8 @@
 		10D74E691885113E00A66775 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				1021EAF3191B8A8900501ADE /* BuzzAppHelper.h */,
+				1021EAF4191B8A8900501ADE /* BuzzAppHelper.m */,
 				102CD7EB1903BF9C0033D201 /* Clipmacon */,
 				102CD7E51903AC340033D201 /* NetworkExtension */,
 			);
@@ -1555,6 +1560,7 @@
 				09ABC07F13A1D52D009C3FCF /* main.m in Sources */,
 				103F5743190061B3001950A6 /* CALDay.m in Sources */,
 				103F574B190061B3001950A6 /* NSDate+ETI.m in Sources */,
+				1021EAF5191B8A8900501ADE /* BuzzAppHelper.m in Sources */,
 				103F5742190061B3001950A6 /* CALCollectionViewFlowLayoutWithStickyHeader.m in Sources */,
 				103F5745190061B3001950A6 /* CALDayHeaderView.m in Sources */,
 				1062FC9B1909439600AF1811 /* PostViewController.m in Sources */,

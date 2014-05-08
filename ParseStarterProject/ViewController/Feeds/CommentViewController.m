@@ -30,14 +30,18 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = NO;
+    self.title = @"Comments";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                           target:self
+                                                                                           action:@selector(doneBtnTapped:)];
     // Fetch Data
     [self fetchCommentData];
 
     // Set a style
-	[self setTableStyle:AMBubbleTableStyleFlat];
     [self setDataSource:self]; // Weird, uh?
 	[self setDelegate:self];
+    [self setTableStyle:AMBubbleTableStyleFlat];
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,16 +75,9 @@
 
 - (UIImage *)avatarForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFUser *user = _feedObj[@"feed_by"];
-    PFFile *file = user[@"userImage"];
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        if (!error)
-        {
-            UIImage *image = [UIImage imageWithData:data];
-        }
-    }];
-
-	return [UIImage imageNamed:@"avatar"];
+    PFObject *obj = (PFObject *)self.dataSourceArray[indexPath.row][@"comment"];
+    PFUser *user = obj[@"comment_by"];
+	return [UIImage imageWithContentsOfFile:[[BuzzAppHelper sharedInstance] getAnswerFilePathWithName:[user objectForKey:@"username"]]];
 }
 
 #pragma mark - AMBubbleTableDelegate
@@ -106,6 +103,23 @@
             [self fetchCommentDataAfterSend];
         }
     }];
+    
+    
+    // Subscribing Comment Chanel
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation addUniqueObject:myComment forKey:@"channels"];
+    [currentInstallation saveInBackground];
+    
+    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+    @"The Mets scored! The game is now tied 1-1!", @"alert",
+    @"Increment", @"badge",
+    @"cheering.caf", @"sound",
+    nil];
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:@"test"];
+//    [push setMessage:@"The Giants just scored!"];
+    [push setData:data];
+    [push sendPushInBackground];
     
 //    // Create  like
 //    PFObject *like = [PFObject objectWithClassName:@"Likes"];
@@ -181,10 +195,31 @@
         {
             [self.dataSourceArray addObject:@{ @"comment": commentObj,
                                                @"type": @(AMBubbleCellReceived)}];
+            
+            PFUser *user = commentObj[@"comment_by"];
+            PFFile *file = user[@"userImage"];
+            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error)
+                {
+                    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"UserAvatar/%@.png", [user objectForKey:@"username"]]];
+                    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+                    if (!fileExists)
+                    {
+                        [data writeToFile:[[BuzzAppHelper sharedInstance] getAnswerFilePathWithName:[user objectForKey:@"username"]] atomically:YES];
+                    }
+                }
+            }];
         }
         
         [self.tableView reloadData];
     }];
+}
+
+#pragma mark - Button Action
+
+- (void)doneBtnTapped:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

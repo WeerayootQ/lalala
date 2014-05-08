@@ -393,7 +393,8 @@ static NSString * const sampleDesc5 = @"Sed rhoncus arcu nisl, in ultrices mi eg
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
     CommentViewController *commtentVC = (CommentViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"CommentViewController"];
     commtentVC.feedObj = (PFObject *)notification.object;
-    [self presentViewController:commtentVC animated:YES completion:nil];
+    UINavigationController *rootVC = [[UINavigationController alloc] initWithRootViewController:commtentVC];
+    [self presentViewController:rootVC animated:YES completion:nil];
 }
 
 - (void)showLikeWithNotification:(NSNotification *)notification

@@ -114,7 +114,7 @@ NSString *const AMOptionsBubblePressEnabled = @"AMOptionsBubblePressEnabled";
 	AMOptionsTextFieldBackground: [UIColor colorWithRed:0.827 green:0.827 blue:0.827 alpha:1],
 	AMOptionsTextFieldFont: [UIFont systemFontOfSize:15],
 	AMOptionsTextFieldFontColor: [UIColor darkGrayColor],
-	AMOptionsBubbleTableBackground: [UIColor colorWithRed:0.913f green:0.913f blue:0.913f alpha:1.0f],
+	AMOptionsBubbleTableBackground: [UIColor whiteColor],//[UIColor colorWithRed:0.913f green:0.913f blue:0.913f alpha:1.0f],
 	AMOptionsAccessoryPosition: @(AMBubbleAccessoryUp),
 	AMOptionsAccessoryClass: @"AMBubbleFlatAccessoryView",
 	AMOptionsAccessorySize: @60,
