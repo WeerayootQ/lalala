@@ -84,12 +84,19 @@
     [self.commentButton addTarget:self action:@selector(commentBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.commentButton setImage:[UIImage imageNamed:@"comment-icon.png"] forState:UIControlStateNormal];
     
+    self.numberOfLikeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width - 150, 50, 75, 29)];
+    self.numberOfLikeLabel.backgroundColor = [UIColor clearColor];
+    self.numberOfLikeLabel.textAlignment = NSTextAlignmentRight;
+    self.numberOfLikeLabel.font = FONT_LIGHT(10);
+    self.numberOfLikeLabel.text = @"30 Likes 100 Comments";
+    
     [self.contentView addSubview:self.userImageView];
     [self.contentView addSubview:self.usernameLabel];
     [self.contentView addSubview:self.userContentLabel];
     [self.contentView addSubview:self.separator];
     [self.contentView addSubview:self.likeButton];
     [self.contentView addSubview:self.commentButton];
+    [self.contentView addSubview:self.numberOfLikeLabel];
     [self setLayoutWithFrameSize:self.frame.size];
 }
 
@@ -112,6 +119,8 @@
     self.separator.hidden = YES;
     self.likeButton.hidden = YES;
     self.commentButton.hidden = YES;
+    self.numberOfLikeLabel.hidden = YES;
+    self.numberOfCommentLabel.hidden = YES;
 }
 
 - (void)setLayoutForLargeLayoutWithDestinationSize:(CGSize)size
@@ -127,7 +136,8 @@
     self.likeButton.frame = CGRectMake(15, self.frame.size.height - 40, 32, 29);
     self.commentButton.hidden = NO;
     self.commentButton.frame = CGRectMake(15 + 15 + 32, self.frame.size.height - 40, 32, 29);
-
+    self.numberOfLikeLabel.hidden = NO;
+    self.numberOfLikeLabel.frame = CGRectMake(15, self.frame.size.height - 35, 290, 29);
 }
 
 - (void)setLayoutWithFrameSize:(CGSize)size
@@ -145,32 +155,71 @@
 - (void)likeBtnTapped:(id)sender
 {
     NSLog(@"Like");
-    // Create  like
+    
+    // Check current user already liked
     PFUser *currentUser = [PFUser currentUser];
-    PFObject *like = [PFObject objectWithClassName:@"Likes"];
-    like[@"like_feed_id"] = _feedObj;
-    like[@"like_by"] = currentUser;
-    [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-    
-        // Subscribing Comment Chanel
-        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-        [currentInstallation addUniqueObject:[NSString stringWithFormat:@"ch%@", _feedObj.objectId] forKey:@"channels"];
-        [currentInstallation saveInBackground];
-    
-        NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ liked your post.", currentUser.username],
-                                  @"Increment" : @"badge"};
-    
-        PFPush *push = [[PFPush alloc] init];
-        [push setChannel:[NSString stringWithFormat:@"ch%@", _feedObj.objectId]];
-        [push setData:payload];
-        [push sendPushInBackground];
-    }];
+
+    if ([self checkUserAlreadyLiked:currentUser] == NO)
+    {
+        // Create  like
+        PFObject *like = [PFObject objectWithClassName:@"Likes"];
+        like[@"like_feed_id"] = _feedObj;
+        like[@"like_by"] = currentUser;
+        [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            // Subscribing Comment Chanel
+            PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+            [currentInstallation addUniqueObject:[NSString stringWithFormat:@"LIKE%@", _feedObj.objectId] forKey:@"channels"];
+            [currentInstallation saveInBackground];
+            
+            NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ liked your post.", currentUser.username],
+                                      @"Increment" : @"badge"};
+            
+            PFPush *push = [[PFPush alloc] init];
+            [push setChannel:[NSString stringWithFormat:@"LIKE%@", _feedObj.objectId]];
+            [push setData:payload];
+            [push sendPushInBackground];
+        }];
+    }
+    else
+    {
+        NSLog(@"This user already liked");
+    }
 }
 
 - (void)commentBtnTapped:(id)sender
 {
     NSLog(@"Comment");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOW_COMMENT" object:_feedObj];
+}
+
+- (BOOL)checkUserAlreadyLiked:(PFUser *)currentUser
+{
+    __block BOOL isLiked;
+    PFQuery *query = [PFQuery queryWithClassName:@"Likes"];
+    [query whereKey:@"like_feed_id" equalTo:_feedObj];
+    [query includeKey:@"like_by"];
+    [query includeKey:@"createdAt"];
+    [query orderByAscending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSLog(@"count object : %d", objects.count);
+        NSLog(@"object : %@", objects);
+        
+        for (int i = 0; i < objects.count; i++)
+        {
+            PFUser *likedUser = objects[i][@"like_by"];
+            if (![currentUser.username isEqualToString:likedUser.username])
+            {
+                isLiked = NO;
+            }
+            else
+            {
+                isLiked = YES;
+            }
+        }
+    }];
+    
+    return isLiked;
 }
 
 @end

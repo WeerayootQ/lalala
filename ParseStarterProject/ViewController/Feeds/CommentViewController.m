@@ -106,16 +106,27 @@
             [self fetchCommentDataAfterSend];
             // Subscribing Comment Chanel
             PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-            [currentInstallation addUniqueObject:[NSString stringWithFormat:@"ch%@", self.feedObj.objectId] forKey:@"channels"];
+            [currentInstallation addUniqueObject:[NSString stringWithFormat:@"COMMENT%@", self.feedObj.objectId] forKey:@"channels"];
             [currentInstallation saveInBackground];
             
             NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ commented on your post.", currentUser.username],
                                       @"Increment" : @"badge"};
             
             PFPush *push = [[PFPush alloc] init];
-            [push setChannel:[NSString stringWithFormat:@"ch%@", self.feedObj.objectId]];
+            [push setChannel:[NSString stringWithFormat:@"COMMENT%@", self.feedObj.objectId]];
             [push setData:payload];
-            [push sendPushInBackground];
+            [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded)
+                {
+                    PFUser *feedOwener = self.feedObj[@"feed_by"];
+                    PFObject *notiRecord = [PFObject objectWithClassName:@"Notification"];
+                    notiRecord[@"noti_for_user"] = feedOwener;
+                    notiRecord[@"noti_by"] = currentUser;
+                    notiRecord[@"noti_type"] = @"COMMENT";
+                    notiRecord[@"noti_for_feed"] = self.feedObj;
+                    [notiRecord saveInBackground];
+                }
+            }];
         }
     }];
 }

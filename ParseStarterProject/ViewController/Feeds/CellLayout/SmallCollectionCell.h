@@ -16,5 +16,7 @@
 @property (nonatomic, strong) UIButton *likeButton;
 @property (nonatomic, strong) UIButton *commentButton;
 @property (nonatomic, strong) UIView *separator;
+@property (nonatomic, strong) UILabel *numberOfCommentLabel;
+@property (nonatomic, strong) UILabel *numberOfLikeLabel;
 @property (nonatomic, strong) PFObject *feedObj;
 @end

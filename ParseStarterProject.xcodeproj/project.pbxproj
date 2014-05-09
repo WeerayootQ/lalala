@@ -73,6 +73,7 @@
 		1044014D188543E600A17DBD /* AddFeedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1044014C188543E600A17DBD /* AddFeedView.m */; };
 		104CFCCB190CD497009D95CB /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 104CFCCA190CD497009D95CB /* libz.dylib */; };
 		104F900E18ED37F900F1BB7C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 104F900D18ED37F900F1BB7C /* Images.xcassets */; };
+		1051E626191D366700854E76 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1051E625191D366700854E76 /* NotificationViewController.m */; };
 		105F3FB3189392C70087C6C6 /* FeedObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 105F3FB2189392C70087C6C6 /* FeedObj.m */; };
 		105F3FB61893A1060087C6C6 /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 105F3FB51893A1060087C6C6 /* FeedCell.m */; };
 		105F3FCB1893B4040087C6C6 /* comment_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 105F3FB71893B4040087C6C6 /* comment_icon.png */; };
@@ -370,6 +371,8 @@
 		1044014C188543E600A17DBD /* AddFeedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFeedView.m; sourceTree = "<group>"; };
 		104CFCCA190CD497009D95CB /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		104F900D18ED37F900F1BB7C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1051E624191D366700854E76 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		1051E625191D366700854E76 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
 		105F3FB1189392C70087C6C6 /* FeedObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedObj.h; sourceTree = "<group>"; };
 		105F3FB2189392C70087C6C6 /* FeedObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedObj.m; sourceTree = "<group>"; };
 		105F3FB41893A1060087C6C6 /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCell.h; sourceTree = "<group>"; };
@@ -714,6 +717,7 @@
 		100800921883CE9200D168D1 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1051E623191D363700854E76 /* Notification */,
 				1062FC981909436600AF1811 /* Post */,
 				103F574D1900A82F001950A6 /* Events */,
 				10E9A12C18DD2DD8003A9F2F /* Feeds */,
@@ -937,6 +941,15 @@
 				1044014C188543E600A17DBD /* AddFeedView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1051E623191D363700854E76 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				1051E624191D366700854E76 /* NotificationViewController.h */,
+				1051E625191D366700854E76 /* NotificationViewController.m */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		105F3FAF18938D650087C6C6 /* Cells */ = {
@@ -1589,6 +1602,7 @@
 				103F573E190061B3001950A6 /* CALAgendaCollectionView.m in Sources */,
 				1065B14918B8569E003358AB /* DoImagePickerController.m in Sources */,
 				105F3FB3189392C70087C6C6 /* FeedObj.m in Sources */,
+				1051E626191D366700854E76 /* NotificationViewController.m in Sources */,
 				10E9A13E18DD3079003A9F2F /* CollectionViewSmallLayout.m in Sources */,
 				103F574C190061B3001950A6 /* NSDateFormatter+CAT.m in Sources */,
 				10AB08C21893CD3200FA94FF /* MenuViewController.m in Sources */,

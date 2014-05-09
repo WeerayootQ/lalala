@@ -24,6 +24,7 @@
 #import "JMOEvent.h"
 #import "PostViewController.h"
 #import "CommentViewController.h"
+#import "NotificationViewController.h"
 
 #import <AddressBook/AddressBook.h>
 #import <MapKit/MapKit.h>
@@ -575,7 +576,7 @@ static NSString * const sampleDesc5 = @"Sed rhoncus arcu nisl, in ultrices mi eg
         [cell.contentView addSubview:icon];
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(77, 24, 250, 62)];
-        label.text = @"Message";
+        label.text = @"Notifications";
         label.textColor = [UIColor whiteColor];
         label.font = FONT_THIN(22);
         label.backgroundColor = [UIColor clearColor];
@@ -625,7 +626,6 @@ static NSString * const sampleDesc5 = @"Sed rhoncus arcu nisl, in ultrices mi eg
     if (indexPath.row == 0)
     {
         // User's profile
-        
     }
     else if (indexPath.row == 1)
     {
@@ -635,6 +635,7 @@ static NSString * const sampleDesc5 = @"Sed rhoncus arcu nisl, in ultrices mi eg
     else if (indexPath.row == 2)
     {
         // Notifications
+        [self openNotification];
     }
     else if (indexPath.row == 3)
     {
@@ -869,6 +870,15 @@ static NSString * const sampleDesc5 = @"Sed rhoncus arcu nisl, in ultrices mi eg
 {
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
     PostViewController *postVC = (PostViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"PostViewController"];
+    [self.navigationController pushViewController:postVC animated:YES];
+}
+
+#pragma mark - Notification 
+
+- (void)openNotification
+{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    NotificationViewController *postVC = (NotificationViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"NotificationViewController"];
     [self.navigationController pushViewController:postVC animated:YES];
 }
 
