@@ -150,20 +150,21 @@
     PFObject *like = [PFObject objectWithClassName:@"Likes"];
     like[@"like_feed_id"] = _feedObj;
     like[@"like_by"] = currentUser;
-    [like saveInBackground];
+    [like saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     
-    // Subscribing Comment Chanel
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation addUniqueObject:like.objectId forKey:@"channels"];
-    [currentInstallation saveInBackground];
+        // Subscribing Comment Chanel
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        [currentInstallation addUniqueObject:[NSString stringWithFormat:@"ch%@", like.objectId] forKey:@"channels"];
+        [currentInstallation saveInBackground];
     
-    NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ Liked your post.", currentUser.username],
-                              @"Increment" : @"badge"};
+        NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ Liked your post.", currentUser.username],
+                                  @"Increment" : @"badge"};
     
-    PFPush *push = [[PFPush alloc] init];
-    [push setChannel:like.objectId];
-    [push setData:payload];
-    [push sendPushInBackground];
+        PFPush *push = [[PFPush alloc] init];
+        [push setChannel:[NSString stringWithFormat:@"ch%@", like.objectId]];
+        [push setData:payload];
+        [push sendPushInBackground];
+    }];
 }
 
 - (void)commentBtnTapped:(id)sender

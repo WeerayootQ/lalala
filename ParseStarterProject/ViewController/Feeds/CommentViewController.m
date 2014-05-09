@@ -109,14 +109,14 @@
     
     // Subscribing Comment Chanel
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation addUniqueObject:myComment.objectId forKey:@"channels"];
+    [currentInstallation addUniqueObject:[NSString stringWithFormat:@"ch%@", myComment.objectId] forKey:@"channels"];
     [currentInstallation saveInBackground];
     
     NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ Liked your post.", currentUser.username],
                               @"Increment" : @"badge"};
     
     PFPush *push = [[PFPush alloc] init];
-    [push setChannel:myComment.objectId];
+    [push setChannel:[NSString stringWithFormat:@"ch%@", myComment.objectId]];
     [push setData:payload];
     [push sendPushInBackground];
 }
