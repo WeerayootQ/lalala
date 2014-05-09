@@ -110,7 +110,7 @@ NSString *const AMOptionsBubblePressEnabled = @"AMOptionsBubblePressEnabled";
 	AMOptionsImageBar: [[UIImage imageNamed:@"imageBarFlat"] resizableImageWithCapInsets:UIEdgeInsetsMake(19.0f, 3.0f, 19.0f, 3.0f)],
 	AMOptionsImageInput: [[UIImage imageNamed:@"imageInputFlat"] resizableImageWithCapInsets:UIEdgeInsetsMake(20.0f, 12.0f, 18.0f, 18.0f)],
 	AMOptionsImageButton: [[UIImage imageNamed:@"buttonSendFlat"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)],
-	AMOptionsImageButtonHighlight: [[UIImage imageNamed:@"buttonSendHighlightedFlat"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)]	,
+	AMOptionsImageButtonHighlight: [[UIImage imageNamed:@"buttonSendHighlightedFlat"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 13.0f)],
 	AMOptionsTextFieldBackground: [UIColor colorWithRed:0.827 green:0.827 blue:0.827 alpha:1],
 	AMOptionsTextFieldFont: [UIFont systemFontOfSize:15],
 	AMOptionsTextFieldFontColor: [UIColor darkGrayColor],

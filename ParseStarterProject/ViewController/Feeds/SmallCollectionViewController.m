@@ -92,6 +92,7 @@ static NSString * const sampleDesc5 = @"Sed rhoncus arcu nisl, in ultrices mi eg
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSignUpWithNotification:) name:@"SHOW_SIGNUP" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSignInWithNotification:) name:@"SHOW_SIGNIN" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showActionSheetWihtNotification:) name:@"SHOW_ACTIONSHEET" object:nil];

@@ -11,6 +11,8 @@
 @interface AMBubbleTableViewController : UIViewController
 
 @property (nonatomic, strong) UITableView*	tableView;
+@property (nonatomic, strong) UIView *likeView;
+@property (nonatomic, strong) PFObject *feedObject;
 
 @property (nonatomic, assign) id<AMBubbleTableDataSource> dataSource;
 @property (nonatomic, assign) id<AMBubbleTableDelegate> delegate;
@@ -18,5 +20,6 @@
 - (void)reloadTableScrollingToBottom:(BOOL)scroll;
 - (void)setBubbleTableOptions:(NSDictionary *)options;
 - (void)setTableStyle:(AMBubbleTableStyle)style;
+- (void)fetchLikeUsers;
 
 @end

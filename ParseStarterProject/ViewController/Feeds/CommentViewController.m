@@ -7,11 +7,13 @@
 //
 
 #import "CommentViewController.h"
+#import "FRDLivelyButton.h"
 
 @interface CommentViewController () <AMBubbleTableDataSource, AMBubbleTableDelegate>
 
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
+@property (nonatomic, strong) FRDLivelyButton *closeBtn;
 
 @end
 
@@ -30,11 +32,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationController.navigationBarHidden = NO;
-    self.title = @"Comments";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                           target:self
-                                                                                           action:@selector(doneBtnTapped:)];
+    self.navigationController.navigationBarHidden = YES;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    // close button
+    self.closeBtn = [[FRDLivelyButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 40, 10, 36, 28)];
+    [self.closeBtn setOptions:@{ kFRDLivelyButtonLineWidth: @(2.0f),
+                                 kFRDLivelyButtonHighlightedColor: [UIColor blackColor],
+                                 kFRDLivelyButtonColor: [UIColor blackColor]
+                               }];
+    [self.closeBtn setStyle:kFRDLivelyButtonStyleClose animated:NO];
+    [self.closeBtn addTarget:self action:@selector(doneBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.closeBtn];
     // Fetch Data
     [self fetchCommentData];
 
@@ -42,6 +50,8 @@
     [self setDataSource:self]; // Weird, uh?
 	[self setDelegate:self];
     [self setTableStyle:AMBubbleTableStyleFlat];
+    [super setFeedObject:self.feedObj];
+    [super fetchLikeUsers];
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,18 +95,11 @@
 - (void)didSendText:(NSString*)text
 {
 	NSLog(@"User wrote: %@", text);
-	
     PFUser *currentUser = [PFUser currentUser];
-    
-    // Create the comment
     PFObject *myComment = [PFObject objectWithClassName:@"Comments"];
-    myComment[@"comment_msg"] = text;//@"Let's do Sushirrito.";
- 
-    // Add a relation between the Post and Comment
+    myComment[@"comment_msg"] = text;
     myComment[@"comment_feed_id"] = self.feedObj;
     myComment[@"comment_by"] = currentUser;
-    
-    // This will save both myPost and myComment
     [myComment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)
         {
@@ -104,31 +107,18 @@
         }
     }];
     
-    
     // Subscribing Comment Chanel
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation addUniqueObject:myComment forKey:@"channels"];
+    [currentInstallation addUniqueObject:myComment.objectId forKey:@"channels"];
     [currentInstallation saveInBackground];
     
-    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-    @"The Mets scored! The game is now tied 1-1!", @"alert",
-    @"Increment", @"badge",
-    @"cheering.caf", @"sound",
-    nil];
-    PFPush *push = [[PFPush alloc] init];
-    [push setChannel:@"test"];
-//    [push setMessage:@"The Giants just scored!"];
-    [push setData:data];
-    [push sendPushInBackground];
+    NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ Liked your post.", currentUser.username],
+                              @"Increment" : @"badge"};
     
-//    // Create  like
-//    PFObject *like = [PFObject objectWithClassName:@"Likes"];
-//    // Add a relation between the Post and Comment
-//    like[@"like_feed_id"] = self.feedObj;
-//    like[@"like_by"] = currentUser;
-//    
-//    // This will save both myPost and myComment
-//    [like saveInBackground];
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:myComment.objectId];
+    [push setData:payload];
+    [push sendPushInBackground];
 }
 
 - (NSString*)usernameForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -206,6 +196,11 @@
                     if (!fileExists)
                     {
                         [data writeToFile:[[BuzzAppHelper sharedInstance] getAnswerFilePathWithName:[user objectForKey:@"username"]] atomically:YES];
+                        NSLog(@"Download to Cache");
+                    }
+                    else
+                    {
+                        NSLog(@"Not Cache");
                     }
                 }
             }];

@@ -145,7 +145,25 @@
 - (void)likeBtnTapped:(id)sender
 {
     NSLog(@"Like");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOW_LIKE" object:_feedObj];
+    // Create  like
+    PFUser *currentUser = [PFUser currentUser];
+    PFObject *like = [PFObject objectWithClassName:@"Likes"];
+    like[@"like_feed_id"] = _feedObj;
+    like[@"like_by"] = currentUser;
+    [like saveInBackground];
+    
+    // Subscribing Comment Chanel
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation addUniqueObject:like.objectId forKey:@"channels"];
+    [currentInstallation saveInBackground];
+    
+    NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ Liked your post.", currentUser.username],
+                              @"Increment" : @"badge"};
+    
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:like.objectId];
+    [push setData:payload];
+    [push sendPushInBackground];
 }
 
 - (void)commentBtnTapped:(id)sender

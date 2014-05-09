@@ -58,6 +58,10 @@
     // Register for push notifications
     [application registerForRemoteNotificationTypes: UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
     
+    // Extract the notification data
+    NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    NSLog(@"PAYLOAD : %@", notificationPayload);
+    
     CollectionViewSmallLayout *smallLayout = [[CollectionViewSmallLayout alloc] init];
     SmallCollectionViewController *collectionViewController = [[SmallCollectionViewController alloc] initWithCollectionViewLayout:smallLayout];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:collectionViewController];
@@ -67,9 +71,6 @@
     self.transitionController.delegate = self;
     self.window.rootViewController = self.navigationController;
     
-//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
-//    self.window.rootViewController = [storyBoard instantiateInitialViewController];
-//    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0/255.0f green:174/255.0f blue:239/255.0f alpha:1.0f]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigationbar.png"] forBarMetrics:UIBarMetricsDefault];
