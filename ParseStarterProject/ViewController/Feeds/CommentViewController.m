@@ -104,21 +104,20 @@
         if (succeeded)
         {
             [self fetchCommentDataAfterSend];
+            // Subscribing Comment Chanel
+            PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+            [currentInstallation addUniqueObject:[NSString stringWithFormat:@"ch%@", self.feedObj.objectId] forKey:@"channels"];
+            [currentInstallation saveInBackground];
+            
+            NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ commented on your post.", currentUser.username],
+                                      @"Increment" : @"badge"};
+            
+            PFPush *push = [[PFPush alloc] init];
+            [push setChannel:[NSString stringWithFormat:@"ch%@", self.feedObj.objectId]];
+            [push setData:payload];
+            [push sendPushInBackground];
         }
     }];
-    
-    // Subscribing Comment Chanel
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation addUniqueObject:[NSString stringWithFormat:@"ch%@", myComment.objectId] forKey:@"channels"];
-    [currentInstallation saveInBackground];
-    
-    NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ Liked your post.", currentUser.username],
-                              @"Increment" : @"badge"};
-    
-    PFPush *push = [[PFPush alloc] init];
-    [push setChannel:[NSString stringWithFormat:@"ch%@", myComment.objectId]];
-    [push setData:payload];
-    [push sendPushInBackground];
 }
 
 - (NSString*)usernameForRowAtIndexPath:(NSIndexPath *)indexPath

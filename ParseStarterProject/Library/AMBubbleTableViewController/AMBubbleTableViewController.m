@@ -93,17 +93,17 @@
 	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
 																						action:@selector(handleTapGesture:)];
     // Like View
-    self.likeView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 90)];
+    self.likeView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 100)];
     self.likeView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.likeView];
     
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 150, 20)];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, 150, 20)];
     headerLabel.font = FONT_BOLD(20);
     headerLabel.text = @"Likes";
     [self.likeView addSubview:headerLabel];
     
 	// Table View
-    CGRect tableFrame = CGRectMake(0.0f, self.likeView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - kInputHeight - 50);
+    CGRect tableFrame = CGRectMake(0.0f, self.likeView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - kInputHeight - 100);
 	self.tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
 	[self.tableView addGestureRecognizer:gestureRecognizer];
 	[self.tableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
@@ -577,15 +577,26 @@
                 {
                     if (i < 4)
                     {
-                        UIImageView *likedUser = [[UIImageView alloc] initWithFrame:CGRectMake(xPOS, 30, 50, 50)];
+                        UIImageView *likedUser = [[UIImageView alloc] initWithFrame:CGRectMake(xPOS, 35, 50, 50)];
                         likedUser.image = [UIImage imageWithData:data];
                         [self.likeView addSubview:likedUser];
                         xPOS = xPOS + 52.0;
                     }
                     else if (i > 3 && i < 5)
                     {
-                        UIImageView *likedUser = [[UIImageView alloc] initWithFrame:CGRectMake(xPOS, 30, 50, 50)];
-                        [self.likeView addSubview:likedUser];
+                        UIView *moreUser = [[UIView alloc] initWithFrame:CGRectMake(xPOS, 35, 50, 50)];
+                        moreUser.backgroundColor = [UIColor lightGrayColor];
+                        
+                        UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+                        moreLabel.font = FONT_REG(16);
+                        moreLabel.textColor = [UIColor whiteColor];
+                        moreLabel.text = [NSString stringWithFormat:@"+%d", objects.count - 5];
+                        moreLabel.backgroundColor = [UIColor clearColor];
+                        moreLabel.textAlignment = NSTextAlignmentCenter;
+                        [moreLabel sizeToFit];
+                        moreLabel.center = CGPointMake(25, 25);
+                        [moreUser addSubview:moreLabel];
+                        [self.likeView addSubview:moreUser];
                     }
                 
                     NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"UserAvatar/%@.png", [user objectForKey:@"username"]]];

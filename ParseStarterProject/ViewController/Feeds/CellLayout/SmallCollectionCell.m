@@ -154,14 +154,14 @@
     
         // Subscribing Comment Chanel
         PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-        [currentInstallation addUniqueObject:[NSString stringWithFormat:@"ch%@", like.objectId] forKey:@"channels"];
+        [currentInstallation addUniqueObject:[NSString stringWithFormat:@"ch%@", _feedObj.objectId] forKey:@"channels"];
         [currentInstallation saveInBackground];
     
-        NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ Liked your post.", currentUser.username],
+        NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ liked your post.", currentUser.username],
                                   @"Increment" : @"badge"};
     
         PFPush *push = [[PFPush alloc] init];
-        [push setChannel:[NSString stringWithFormat:@"ch%@", like.objectId]];
+        [push setChannel:[NSString stringWithFormat:@"ch%@", _feedObj.objectId]];
         [push setData:payload];
         [push sendPushInBackground];
     }];
