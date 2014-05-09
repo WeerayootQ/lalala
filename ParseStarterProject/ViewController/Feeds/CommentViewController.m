@@ -95,18 +95,11 @@
 - (void)didSendText:(NSString*)text
 {
 	NSLog(@"User wrote: %@", text);
-	
     PFUser *currentUser = [PFUser currentUser];
-    
-    // Create the comment
     PFObject *myComment = [PFObject objectWithClassName:@"Comments"];
-    myComment[@"comment_msg"] = text;//@"Let's do Sushirrito.";
- 
-    // Add a relation between the Post and Comment
+    myComment[@"comment_msg"] = text;
     myComment[@"comment_feed_id"] = self.feedObj;
     myComment[@"comment_by"] = currentUser;
-    
-    // This will save both myPost and myComment
     [myComment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded)
         {
@@ -114,31 +107,18 @@
         }
     }];
     
-    
     // Subscribing Comment Chanel
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation addUniqueObject:myComment forKey:@"channels"];
+    [currentInstallation addUniqueObject:myComment.objectId forKey:@"channels"];
     [currentInstallation saveInBackground];
     
-    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-    text, @"alert",
-    @"Increment", @"badge",
-    @"cheering.caf", @"sound",
-    nil];
-    PFPush *push = [[PFPush alloc] init];
-    [push setChannel:@"test"];
-//    [push setMessage:@"The Giants just scored!"];
-    [push setData:data];
-    [push sendPushInBackground];
+    NSDictionary *payload = @{@"alert" : [NSString stringWithFormat:@"%@ Liked your post.", currentUser.username],
+                              @"Increment" : @"badge"};
     
-//    // Create  like
-//    PFObject *like = [PFObject objectWithClassName:@"Likes"];
-//    // Add a relation between the Post and Comment
-//    like[@"like_feed_id"] = self.feedObj;
-//    like[@"like_by"] = currentUser;
-//    
-//    // This will save both myPost and myComment
-//    [like saveInBackground];
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:myComment.objectId];
+    [push setData:payload];
+    [push sendPushInBackground];
 }
 
 - (NSString*)usernameForRowAtIndexPath:(NSIndexPath *)indexPath
