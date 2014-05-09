@@ -92,14 +92,24 @@
 {
 	UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
 																						action:@selector(handleTapGesture:)];
+    // Like View
+    self.likeView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, 90)];
+    self.likeView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.likeView];
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 150, 20)];
+    headerLabel.font = FONT_BOLD(20);
+    headerLabel.text = @"Likes";
+    [self.likeView addSubview:headerLabel];
+    
 	// Table View
-    CGRect tableFrame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height - kInputHeight);
+    CGRect tableFrame = CGRectMake(0.0f, self.likeView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - kInputHeight - 50);
 	self.tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
 	[self.tableView addGestureRecognizer:gestureRecognizer];
 	[self.tableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
 	[self.tableView setDataSource:self];
 	[self.tableView setDelegate:self];
-	[self.tableView setBackgroundColor:self.options[AMOptionsBubbleTableBackground]];
+	[self.tableView setBackgroundColor:[UIColor whiteColor]];//self.options[AMOptionsBubbleTableBackground]];
 	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	[self.view addSubview:self.tableView];
 	
@@ -308,6 +318,23 @@
 	// Account for either the bubble or accessory size
     return MAX(size.height + 17.0f + usernameSize.height,
 			   [self.options[AMOptionsAccessorySize] floatValue] + [self.options[AMOptionsAccessoryMargin] floatValue]);
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 35)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 150, 20)];
+    headerLabel.font = FONT_BOLD(20);
+    headerLabel.text = @"Comments";
+    [headerView addSubview:headerLabel];
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30.0f;
 }
 
 #pragma mark - Keyboard Handlers
@@ -524,6 +551,58 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
 	[self.tableView reloadData];
+}
+
+#pragma mark - Like
+
+- (void)fetchLikeUsers
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Likes"];
+    [query whereKey:@"like_feed_id" equalTo:self.feedObject];
+    [query includeKey:@"like_by"];
+    [query includeKey:@"createdAt"];
+    [query orderByAscending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSLog(@"count object : %d", objects.count);
+        NSLog(@"object : %@", objects);
+        
+        __block float xPOS = 5.0;
+        for (int i = 0; i < objects.count; i++)
+        {
+            PFObject *likeObj = objects[i];
+            PFUser *user = likeObj[@"like_by"];
+            PFFile *file = user[@"userImage"];
+            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error)
+                {
+                    if (i < 4)
+                    {
+                        UIImageView *likedUser = [[UIImageView alloc] initWithFrame:CGRectMake(xPOS, 30, 50, 50)];
+                        likedUser.image = [UIImage imageWithData:data];
+                        [self.likeView addSubview:likedUser];
+                        xPOS = xPOS + 52.0;
+                    }
+                    else if (i > 3 && i < 5)
+                    {
+                        UIImageView *likedUser = [[UIImageView alloc] initWithFrame:CGRectMake(xPOS, 30, 50, 50)];
+                        [self.likeView addSubview:likedUser];
+                    }
+                
+                    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"UserAvatar/%@.png", [user objectForKey:@"username"]]];
+                    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+                    if (!fileExists)
+                    {
+                        [data writeToFile:[[BuzzAppHelper sharedInstance] getAnswerFilePathWithName:[user objectForKey:@"username"]] atomically:YES];
+                        NSLog(@"Download to Cache");
+                    }
+                    else
+                    {
+                        NSLog(@"Not Cache");
+                    }
+                }
+            }];
+        }
+    }];
 }
 
 @end

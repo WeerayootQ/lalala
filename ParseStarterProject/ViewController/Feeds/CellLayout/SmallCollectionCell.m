@@ -145,7 +145,16 @@
 - (void)likeBtnTapped:(id)sender
 {
     NSLog(@"Like");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOW_LIKE" object:_feedObj];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"SHOW_LIKE" object:_feedObj];
+    // Create  like
+    PFUser *currentUser = [PFUser currentUser];
+    PFObject *like = [PFObject objectWithClassName:@"Likes"];
+    // Add a relation between the Post and Comment
+    like[@"like_feed_id"] = _feedObj;
+    like[@"like_by"] = currentUser;
+    
+    // This will save both myPost and myComment
+    [like saveInBackground];
 }
 
 - (void)commentBtnTapped:(id)sender
