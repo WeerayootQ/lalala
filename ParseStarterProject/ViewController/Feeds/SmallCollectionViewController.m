@@ -25,6 +25,7 @@
 #import "PostViewController.h"
 #import "CommentViewController.h"
 #import "NotificationViewController.h"
+#import "ProfileViewController.h"
 
 #import <AddressBook/AddressBook.h>
 #import <MapKit/MapKit.h>
@@ -626,6 +627,7 @@ static NSString * const sampleDesc5 = @"Sed rhoncus arcu nisl, in ultrices mi eg
     if (indexPath.row == 0)
     {
         // User's profile
+        [self openProfile];
     }
     else if (indexPath.row == 1)
     {
@@ -880,6 +882,15 @@ static NSString * const sampleDesc5 = @"Sed rhoncus arcu nisl, in ultrices mi eg
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
     NotificationViewController *postVC = (NotificationViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"NotificationViewController"];
     [self.navigationController pushViewController:postVC animated:YES];
+}
+
+#pragma mark - Profile
+
+- (void)openProfile
+{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    ProfileViewController *profileVC = (ProfileViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 @end

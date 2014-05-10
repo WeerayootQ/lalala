@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ParseStarterProject/ViewController/Feeds/SmallCollectionViewController.m"
-            timestampString = "421345127.605399"
+            timestampString = "421399187.351972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>

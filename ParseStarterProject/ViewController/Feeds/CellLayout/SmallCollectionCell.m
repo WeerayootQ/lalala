@@ -178,7 +178,18 @@
             PFPush *push = [[PFPush alloc] init];
             [push setChannel:[NSString stringWithFormat:@"LIKE%@", _feedObj.objectId]];
             [push setData:payload];
-            [push sendPushInBackground];
+            [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded)
+                {
+                    PFUser *feedOwener = _feedObj[@"feed_by"];
+                    PFObject *notiRecord = [PFObject objectWithClassName:@"Notification"];
+                    notiRecord[@"noti_for_user"] = feedOwener;
+                    notiRecord[@"noti_by"] = currentUser;
+                    notiRecord[@"noti_type"] = @"LIKE";
+                    notiRecord[@"noti_for_feed"] = self.feedObj;
+                    [notiRecord saveInBackground];
+                }
+            }];
         }];
     }
     else
