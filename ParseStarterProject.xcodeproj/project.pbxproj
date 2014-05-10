@@ -717,6 +717,7 @@
 		100800921883CE9200D168D1 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				10F3B560191E079500557270 /* Profile */,
 				1051E623191D363700854E76 /* Notification */,
 				1062FC981909436600AF1811 /* Post */,
 				103F574D1900A82F001950A6 /* Events */,
@@ -1282,6 +1283,13 @@
 				10E9A15918DD488D003A9F2F /* LargeCollectionCell.m */,
 			);
 			path = CellLayout;
+			sourceTree = "<group>";
+		};
+		10F3B560191E079500557270 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

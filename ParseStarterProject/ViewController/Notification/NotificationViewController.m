@@ -8,6 +8,7 @@
 
 #import "NotificationViewController.h"
 #import "FRDLivelyButton.h"
+#import "CommentViewController.h"
 
 @interface NotificationViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
@@ -82,7 +83,51 @@
     PFUser *byUser = notiObj[@"noti_by"];
     if ([[notiObj objectForKey:@"noti_type"] isEqualToString:@"LIKE"])
     {
-        cell.textLabel.text = @"Like";
+        UIImageView *userAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(15, 5, 45, 45)];
+        userAvatar.backgroundColor = [UIColor greenColor];
+        userAvatar.image = [UIImage imageWithContentsOfFile:[[BuzzAppHelper sharedInstance] getAnswerFilePathWithName:byUser.username]];
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:userAvatar.bounds];
+        userAvatar.layer.masksToBounds = NO;
+        userAvatar.layer.shadowColor = [UIColor blackColor].CGColor;
+        userAvatar.layer.shadowOffset = CGSizeMake(0.0f, 5.0f);
+        userAvatar.layer.shadowOpacity = 0.5f;
+        userAvatar.layer.shadowPath = shadowPath.CGPath;
+        
+        UILabel *notiLabel = [[UILabel alloc] initWithFrame:CGRectMake(userAvatar.frame.origin.x + userAvatar.frame.size.width + 5, 5, self.view.frame.size.width, 30)];
+        notiLabel.text = [NSString stringWithFormat:@"%@ commented on your post", byUser.username];
+        notiLabel.font = FONT_LIGHT(16);
+        NSString *darkText = byUser.username;
+        NSString *lightText = @"commented on your post";
+        NSString *text = [NSString stringWithFormat:@"%@ %@", darkText, lightText];
+        
+        // Define general attributes for the entire text
+        NSDictionary *attribs = @{NSForegroundColorAttributeName:notiLabel.textColor,
+                                  NSFontAttributeName:notiLabel.font};
+        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text
+                                                                                           attributes:attribs];
+        // Dark text attributes
+        UIColor *darkColor = [UIColor blackColor];
+        NSRange darkTextRange = [text rangeOfString:darkText];
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:darkColor,
+                                        NSFontAttributeName:FONT_BOLD(16)}
+                                range:darkTextRange];
+        
+        // Light text attributes
+        UIColor *lightColor = [UIColor lightGrayColor];
+        NSRange lightTextRange = [text rangeOfString:lightText];
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:lightColor}
+                                range:lightTextRange];
+        notiLabel.attributedText = attributedText;
+        
+        NSDate *createdAt = notiObj.createdAt;
+        UILabel *timeStampLabel = [[UILabel alloc] initWithFrame:CGRectMake(userAvatar.frame.origin.x + userAvatar.frame.size.width + 5, 25, self.view.frame.size.width, 30)];
+        timeStampLabel.text = [NSString stringWithFormat:@"%@", [self relativeDateStringForDate:createdAt]];
+        timeStampLabel.font = FONT_LIGHT(14);
+        timeStampLabel.textColor = [UIColor lightGrayColor];
+        
+        [cell.contentView addSubview:userAvatar];
+        [cell.contentView addSubview:notiLabel];
+        [cell.contentView addSubview:timeStampLabel];
     }
     else if ([[notiObj objectForKey:@"noti_type"] isEqualToString:@"COMMENT"])
     {
@@ -134,7 +179,51 @@
     }
     else
     {
+        UIImageView *userAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(15, 5, 45, 45)];
+        userAvatar.backgroundColor = [UIColor greenColor];
+        userAvatar.image = [UIImage imageWithContentsOfFile:[[BuzzAppHelper sharedInstance] getAnswerFilePathWithName:byUser.username]];
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:userAvatar.bounds];
+        userAvatar.layer.masksToBounds = NO;
+        userAvatar.layer.shadowColor = [UIColor blackColor].CGColor;
+        userAvatar.layer.shadowOffset = CGSizeMake(0.0f, 5.0f);
+        userAvatar.layer.shadowOpacity = 0.5f;
+        userAvatar.layer.shadowPath = shadowPath.CGPath;
         
+        UILabel *notiLabel = [[UILabel alloc] initWithFrame:CGRectMake(userAvatar.frame.origin.x + userAvatar.frame.size.width + 5, 5, self.view.frame.size.width, 30)];
+        notiLabel.text = [NSString stringWithFormat:@"%@ commented on your post", byUser.username];
+        notiLabel.font = FONT_LIGHT(16);
+        NSString *darkText = byUser.username;
+        NSString *lightText = @"commented on your post";
+        NSString *text = [NSString stringWithFormat:@"%@ %@", darkText, lightText];
+        
+        // Define general attributes for the entire text
+        NSDictionary *attribs = @{NSForegroundColorAttributeName:notiLabel.textColor,
+                                  NSFontAttributeName:notiLabel.font};
+        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text
+                                                                                           attributes:attribs];
+        // Dark text attributes
+        UIColor *darkColor = [UIColor blackColor];
+        NSRange darkTextRange = [text rangeOfString:darkText];
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:darkColor,
+                                        NSFontAttributeName:FONT_BOLD(16)}
+                                range:darkTextRange];
+        
+        // Light text attributes
+        UIColor *lightColor = [UIColor lightGrayColor];
+        NSRange lightTextRange = [text rangeOfString:lightText];
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:lightColor}
+                                range:lightTextRange];
+        notiLabel.attributedText = attributedText;
+        
+        NSDate *createdAt = notiObj.createdAt;
+        UILabel *timeStampLabel = [[UILabel alloc] initWithFrame:CGRectMake(userAvatar.frame.origin.x + userAvatar.frame.size.width + 5, 25, self.view.frame.size.width, 30)];
+        timeStampLabel.text = [NSString stringWithFormat:@"%@", [self relativeDateStringForDate:createdAt]];
+        timeStampLabel.font = FONT_LIGHT(14);
+        timeStampLabel.textColor = [UIColor lightGrayColor];
+        
+        [cell.contentView addSubview:userAvatar];
+        [cell.contentView addSubview:notiLabel];
+        [cell.contentView addSubview:timeStampLabel];
     }
 }
 
@@ -142,7 +231,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    PFObject *notiObj = (PFObject *)self.dataSourceArray[indexPath.row];
+    PFObject *forFeedObject = [notiObj objectForKey:@"noti_for_feed"];
+    
     NSLog(@"SELECTED");
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    CommentViewController *commtentVC = (CommentViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"CommentViewController"];
+    commtentVC.feedObj = forFeedObject;
+    UINavigationController *rootVC = [[UINavigationController alloc] initWithRootViewController:commtentVC];
+    [self presentViewController:rootVC animated:YES completion:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
