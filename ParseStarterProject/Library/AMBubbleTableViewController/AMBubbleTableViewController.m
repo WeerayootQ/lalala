@@ -579,6 +579,12 @@
                     {
                         UIImageView *likedUser = [[UIImageView alloc] initWithFrame:CGRectMake(xPOS, 35, 50, 50)];
                         likedUser.image = [UIImage imageWithData:data];
+                        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:likedUser.bounds];
+                        likedUser.layer.masksToBounds = NO;
+                        likedUser.layer.shadowColor = [UIColor blackColor].CGColor;
+                        likedUser.layer.shadowOffset = CGSizeMake(0.0f, 5.0f);
+                        likedUser.layer.shadowOpacity = 0.5f;
+                        likedUser.layer.shadowPath = shadowPath.CGPath;
                         [self.likeView addSubview:likedUser];
                         xPOS = xPOS + 52.0;
                     }

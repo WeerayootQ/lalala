@@ -172,8 +172,20 @@
 
 	if (type == AMBubbleCellReceived) {
 		[self.imageBackground setImage:self.options[AMOptionsImageIncoming]];
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.imageBackground.bounds];
+        self.imageBackground.layer.masksToBounds = NO;
+        self.imageBackground.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.imageBackground.layer.shadowOffset = CGSizeMake(0.0f, 5.0f);
+        self.imageBackground.layer.shadowOpacity = 0.5f;
+        self.imageBackground.layer.shadowPath = shadowPath.CGPath;
 	} else {
-		[self.imageBackground setImage:self.options[AMOptionsImageOutgoing]];
+		[self.imageBackground setImage:self.options[AMOptionsImageOutgoing]];\
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.imageBackground.bounds];
+        self.imageBackground.layer.masksToBounds = NO;
+        self.imageBackground.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.imageBackground.layer.shadowOffset = CGSizeMake(0.0f, 5.0f);
+        self.imageBackground.layer.shadowOpacity = 0.5f;
+        self.imageBackground.layer.shadowPath = shadowPath.CGPath;
 	}
 	
 	[self.imageBackground setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
